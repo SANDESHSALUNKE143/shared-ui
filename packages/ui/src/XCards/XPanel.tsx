@@ -8,7 +8,7 @@ import Paper from "@mui/material/Paper";
 import Typography from "@mui/material/Typography";
 import type { ReactNode } from "react";
 
-import { XEmpty } from "../Feedback/XEmpty";
+import { XEmpty } from "../XFeedback/XEmpty";
 
 export type XPanelProps = {
   title: string;

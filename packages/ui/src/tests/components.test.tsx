@@ -3,12 +3,12 @@ import userEvent from "@testing-library/user-event";
 import { useState } from "react";
 import { describe, expect, it, vi } from "vitest";
 
-import { XBackButton, XButton, XIconButton } from "../Buttons";
-import { XCard, XPanel } from "../Cards";
-import { useXNotify, XAlert, XEmpty, XErrorBoundary, XLoader, XNotifyProvider, XSectionHeader, XSkeleton, XStatusChip, XTooltip } from "../Feedback";
-import { XCheckbox, XMultiSelect, XRadioGroup, XSelect, XTextField } from "../Input";
-import { XLink, XTabs } from "../Navigation";
-import { XPageHeader } from "../Templates";
+import { XBackButton, XButton, XIconButton } from "../XButtons";
+import { XCard, XPanel } from "../XCards";
+import { useXNotify, XAlert, XEmpty, XErrorBoundary, XLoader, XNotifyProvider, XSectionHeader, XSkeleton, XStatusChip, XTooltip } from "../XFeedback";
+import { XCheckbox, XMultiSelect, XRadioGroup, XSelect, XTextField } from "../XInput";
+import { XLink, XTabs } from "../XNavigation";
+import { XPageHeader } from "../XTemplates";
 import { XDataGrid } from "../XDataGrid";
 import { XConfirm, XDialog, XDialogHeader } from "../XDialog";
 import { XDrawer } from "../XDrawer";

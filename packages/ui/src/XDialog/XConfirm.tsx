@@ -7,7 +7,7 @@
 import DialogContent from "@mui/material/DialogContent";
 import DialogContentText from "@mui/material/DialogContentText";
 
-import { XButton } from "../Buttons";
+import { XButton } from "../XButtons";
 import { XDialog } from "./XDialog";
 import { XDialogFooter } from "./XDialogFooter";
 import { XDialogHeader } from "./XDialogHeader";

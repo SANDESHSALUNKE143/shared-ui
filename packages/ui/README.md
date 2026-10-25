@@ -9,7 +9,7 @@ import { XButton, XCssBaseline, XLightTheme, XPageHeader, XThemeProvider } from 
 
 A screen does not import `@mui/material`. `XThemeProvider` and `XCssBaseline` come from this package.
 
-Every component name starts with `X`. The toast hook is `useXNotify`.
+Every folder and every component name starts with `X`. The toast hook is `useXNotify`.
 ```
 
 Do not import a second button, icon, or dialog library in an application screen. Add a missing shared control here and re-export it from `src/index.ts`.

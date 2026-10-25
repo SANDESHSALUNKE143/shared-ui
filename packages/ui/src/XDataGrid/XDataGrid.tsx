@@ -11,8 +11,8 @@ import { DataGrid, type GridColDef, type GridRowsProp } from "@mui/x-data-grid";
 import { useTheme } from "@mui/material/styles";
 import useMediaQuery from "@mui/material/useMediaQuery";
 
-import { XCard } from "../Cards";
-import { XEmpty } from "../Feedback/XEmpty";
+import { XCard } from "../XCards";
+import { XEmpty } from "../XFeedback/XEmpty";
 
 export type XDataGridProps = {
   rows: GridRowsProp;

@@ -6,7 +6,7 @@
 
 import Chip from "@mui/material/Chip";
 
-import { formatStatus } from "../Text/formatStatus";
+import { formatStatus } from "../XText/formatStatus";
 
 export type XStatusChipProps = {
   value: string;
