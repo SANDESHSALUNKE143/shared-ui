@@ -1,0 +1,14 @@
+{
+  "name": "shared-ui",
+  "private": true,
+  "license": "MIT",
+  "description": "Shared UI and UX component library for the organization.",
+  "workspaces": [
+    "packages/*"
+  ],
+  "scripts": {
+    "build": "npm run build --workspace @shared-ui/react",
+    "typecheck": "npm run typecheck --workspace @shared-ui/react",
+    "test": "npm run test --workspace @shared-ui/react"
+  }
+}
