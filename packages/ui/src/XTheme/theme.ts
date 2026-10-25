@@ -65,6 +65,11 @@ export function createXTheme(mode: ColorMode = themeTokens.mode) {
           root: { minWidth: 44, minHeight: 44 },
         },
       },
+      MuiToggleButton: {
+        styleOverrides: {
+          root: { minHeight: 44, textTransform: "none" },
+        },
+      },
       MuiTab: {
         styleOverrides: {
           root: { textTransform: "none", minHeight: 44 },

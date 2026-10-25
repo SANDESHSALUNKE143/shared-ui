@@ -13,8 +13,8 @@ A feature screen is a column: page header, optional tabs, then content. On a pho
 | Area | Exports |
 | --- | --- |
 | Theme | `XLightTheme`, `XDarkTheme`, `createXTheme`, `XThemeProvider`, `XCssBaseline`, `XThemeTokens`, `XDefaultFont`, `XAllowedFonts`, `XFontFamily` |
-| Icons | `XIconChevronLeft`, `XIconClose`, `XIconEdit`, `XIconAdd`, `XIconDelete`, `XIconShow`, `XIconHide`, `XIconSuccess`, `XIconError`, `XIconWarning`, `XIconInfo`, `XIconPerson`, `XIconDocument`, `XIconOrganization`, `XIconDashboard`, `XIconTask`, `XIconBold` |
-| Actions | `XButton`, `XIconButton`, `XBackButton` |
+| Icons | `XIconChevronLeft`, `XIconChevronRight`, `XIconChevronDown`, `XIconChevronUp`, `XIconClose`, `XIconEdit`, `XIconAdd`, `XIconDelete`, `XIconSearch`, `XIconSettings`, `XIconFilter`, `XIconMenu`, `XIconMore`, `XIconCopy`, `XIconDownload`, `XIconUpload`, `XIconRefresh`, `XIconSave`, `XIconCheck`, `XIconShare`, `XIconExternal`, `XIconShow`, `XIconHide`, `XIconSuccess`, `XIconError`, `XIconWarning`, `XIconInfo`, `XIconHelp`, `XIconPerson`, `XIconDocument`, `XIconRecord`, `XIconOrganization`, `XIconDashboard`, `XIconTask`, `XIconHome`, `XIconMail`, `XIconCalendar`, `XIconBell`, `XIconLock`, `XIconLogout`, `XIconBold` |
+| Actions | `XButton`, `XIconButton`, `XBackButton`, `XToggleButton`, `XToggleButtonGroup` |
 | Inputs | `XTextField`, `XSelect`, `XMultiSelect`, `XRadioGroup`, `XCheckbox`, `applyXMask` |
 | Navigation | `XTabs`, `XLink` |
 | Chrome | `XPageHeader`, `XCard`, `XPanel`, `XSectionHeader` |
@@ -119,6 +119,28 @@ export function PhoneForm() {
 ```
 
 Use `XButton` for that save action in a real screen. One primary button per view. A destructive action goes through `XConfirm` first.
+
+`XToggleButtonGroup` keeps one choice pressed. Set `exclusive={false}` when several can stay pressed. On a phone the group stacks.
+
+```tsx
+import { useState } from "react";
+import { XToggleButtonGroup } from "@shared-ui/react";
+
+export function ViewSwitch() {
+  const [view, setView] = useState("list");
+  return (
+    <XToggleButtonGroup
+      label="View"
+      value={view}
+      onChange={setView}
+      options={[
+        { value: "list", label: "List" },
+        { value: "grid", label: "Grid" },
+      ]}
+    />
+  );
+}
+```
 
 ```tsx
 import { useState } from "react";

@@ -3,7 +3,7 @@ import userEvent from "@testing-library/user-event";
 import { useState } from "react";
 import { describe, expect, it, vi } from "vitest";
 
-import { XBackButton, XButton, XIconButton } from "../XButtons";
+import { XBackButton, XButton, XIconButton, XToggleButtonGroup } from "../XButtons";
 import { XCard, XPanel } from "../XCards";
 import { useXNotify, XAlert, XEmpty, XErrorBoundary, XLoader, XNotifyProvider, XSectionHeader, XSkeleton, XStatusChip, XTooltip } from "../XFeedback";
 import { XCheckbox, XMultiSelect, XRadioGroup, XSelect, XTextField } from "../XInput";
@@ -12,7 +12,7 @@ import { XPageHeader } from "../XTemplates";
 import { XDataGrid } from "../XDataGrid";
 import { XConfirm, XDialog, XDialogHeader } from "../XDialog";
 import { XDrawer } from "../XDrawer";
-import { XIconAdd, XIconBold, XIconDashboard } from "../XIcon";
+import { XIconAdd, XIconBold, XIconDashboard, XIconDelete, XIconSearch, XIconSettings } from "../XIcon";
 import { renderWithTheme } from "./render";
 
 function SecretField() {
@@ -258,6 +258,9 @@ describe("controls", () => {
         <XSkeleton />
         <XLoader />
         <XIconBold icon={XIconDashboard} />
+        <XIconDelete size="1em" />
+        <XIconSearch size="1em" />
+        <XIconSettings size="1em" />
         <XErrorBoundary>
           <Boom />
         </XErrorBoundary>
@@ -270,5 +273,40 @@ describe("controls", () => {
     expect(screen.getByRole("status", { name: "Loading" })).toBeInTheDocument();
     await user.click(screen.getByRole("radio", { name: "Alpha" }));
     expect(onPick).toHaveBeenCalledWith("a");
+  });
+
+  it("switches one toggle and collects several", async () => {
+    const user = userEvent.setup();
+    const onView = vi.fn();
+    const onTags = vi.fn();
+    renderWithTheme(
+      <>
+        <XToggleButtonGroup
+          label="View"
+          value="list"
+          options={[
+            { value: "list", label: "List" },
+            { value: "grid", label: "Grid" },
+          ]}
+          onChange={onView}
+        />
+        <XToggleButtonGroup
+          exclusive={false}
+          label="Tags"
+          value={["alpha"]}
+          options={[
+            { value: "alpha", label: "Alpha tag" },
+            { value: "beta", label: "Beta tag" },
+          ]}
+          onChange={onTags}
+        />
+      </>,
+    );
+    await user.click(screen.getByRole("button", { name: "List" }));
+    expect(onView).not.toHaveBeenCalled();
+    await user.click(screen.getByRole("button", { name: "Grid" }));
+    expect(onView).toHaveBeenCalledWith("grid");
+    await user.click(screen.getByRole("button", { name: "Beta tag" }));
+    expect(onTags).toHaveBeenCalledWith(["alpha", "beta"]);
   });
 });
