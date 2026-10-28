@@ -1,7 +1,7 @@
 import { describe, expect, it } from "vitest";
 
-import { allowedFonts, defaultFont, themeTokens } from "./tokens";
-import { createXTheme, XDarkTheme, XLightTheme } from "./theme";
+import { allowedFonts, defaultFont, themeTokens } from "../../src/XTheme/tokens";
+import { createXTheme, XDarkTheme, XLightTheme } from "../../src/XTheme/theme";
 
 describe("theme", () => {
   it("uses the organization defaults", () => {

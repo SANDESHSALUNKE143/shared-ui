@@ -1,6 +1,6 @@
 import { describe, expect, it } from "vitest";
 
-import { formatStatus } from "./formatStatus";
+import { formatStatus } from "../../src/XText/formatStatus";
 
 describe("formatStatus", () => {
   it("turns a raw enum into title case words", () => {

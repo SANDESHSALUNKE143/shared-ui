@@ -3,8 +3,8 @@ import userEvent from "@testing-library/user-event";
 import { useState, type ReactNode } from "react";
 import { describe, expect, it, vi } from "vitest";
 
-import { renderWithTheme } from "../tests/render";
-import { XLogin } from "./XLogin";
+import { renderWithTheme } from "../render";
+import { XLogin } from "../../src/XAuth";
 
 function LoginForm({
   onSubmit,

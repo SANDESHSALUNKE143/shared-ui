@@ -13,3 +13,5 @@ Every folder and every component name starts with `X`. The toast hook is `useXNo
 ```
 
 Do not import a second button, icon, or dialog library in an application screen. Add a missing shared control here and re-export it from `src/index.ts`.
+
+Tests live in `test`. The sign-in and branding integration lives in `example`.

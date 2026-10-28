@@ -1,6 +1,6 @@
 import { describe, expect, it } from "vitest";
 
-import { contrastRatio, needsContrastHint } from "./contrast";
+import { contrastRatio, needsContrastHint } from "../../src/XBranding/contrast";
 
 describe("contrast", () => {
   it("flags white text that falls below the AA ratio", () => {

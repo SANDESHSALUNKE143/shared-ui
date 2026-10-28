@@ -3,16 +3,16 @@ import userEvent from "@testing-library/user-event";
 import { useState } from "react";
 import { describe, expect, it, vi } from "vitest";
 
-import { XBackButton, XButton, XIconButton, XToggleButtonGroup } from "../XButtons";
-import { XCard, XPanel } from "../XCards";
-import { useXNotify, XAlert, XEmpty, XErrorBoundary, XLoader, XNotifyProvider, XSectionHeader, XSkeleton, XStatusChip, XTooltip } from "../XFeedback";
-import { XCheckbox, XMultiSelect, XRadioGroup, XSelect, XTextField } from "../XInput";
-import { XLink, XTabs } from "../XNavigation";
-import { XPageHeader } from "../XTemplates";
-import { XDataGrid } from "../XDataGrid";
-import { XConfirm, XDialog, XDialogHeader } from "../XDialog";
-import { XDrawer } from "../XDrawer";
-import { XIconAdd, XIconBold, XIconDashboard, XIconDelete, XIconSearch, XIconSettings } from "../XIcon";
+import { XBackButton, XButton, XIconButton, XToggleButtonGroup } from "../src/XButtons";
+import { XCard, XPanel } from "../src/XCards";
+import { useXNotify, XAlert, XEmpty, XErrorBoundary, XLoader, XNotifyProvider, XSectionHeader, XSkeleton, XStatusChip, XTooltip } from "../src/XFeedback";
+import { XCheckbox, XMultiSelect, XRadioGroup, XSelect, XTextField } from "../src/XInput";
+import { XLink, XTabs } from "../src/XNavigation";
+import { XPageHeader } from "../src/XTemplates";
+import { XDataGrid } from "../src/XDataGrid";
+import { XConfirm, XDialog, XDialogHeader } from "../src/XDialog";
+import { XDrawer } from "../src/XDrawer";
+import { XIconAdd, XIconBold, XIconDashboard, XIconDelete, XIconSearch, XIconSettings } from "../src/XIcon";
 import { renderWithTheme } from "./render";
 
 function SecretField() {
