@@ -2,7 +2,7 @@
 
 Shared UI and UX component library for the organization. Every app imports `@shared-ui/react`. A screen does not name a font, paste a brand color, or add a second button, icon, or dialog library.
 
-Every component and icon from this package starts with `X`, so a screen can see that it came from the shared library. The package shape follows `fassport-app/packages/ui`: a workspace package, one folder per concern, that `X` prefix, and a single `src/index.ts` that re-exports each folder. That app is a reference only and is not changed by this repository. Product screens (auth, billing, tenants) stay in the app that owns them.
+Every component and icon from this package starts with `X`, so a screen can see that it came from the shared library. The package is one folder per concern, that `X` prefix, and a single `src/index.ts` that re-exports each folder. Sign-in and branding settings are shared screens. Each app still owns the auth request, the file upload, and saving.
 
 ![Screen layout on desktop and on a phone](docs/screen-layout.svg)
 
@@ -15,7 +15,8 @@ A feature screen is a column: page header, optional tabs, then content. On a pho
 | Theme | `XLightTheme`, `XDarkTheme`, `createXTheme`, `XThemeProvider`, `XCssBaseline`, `XThemeTokens`, `XDefaultFont`, `XAllowedFonts`, `XFontFamily` |
 | Icons | `XIconChevronLeft`, `XIconChevronRight`, `XIconChevronDown`, `XIconChevronUp`, `XIconClose`, `XIconEdit`, `XIconAdd`, `XIconDelete`, `XIconSearch`, `XIconSettings`, `XIconFilter`, `XIconMenu`, `XIconMore`, `XIconCopy`, `XIconDownload`, `XIconUpload`, `XIconRefresh`, `XIconSave`, `XIconCheck`, `XIconShare`, `XIconExternal`, `XIconShow`, `XIconHide`, `XIconSuccess`, `XIconError`, `XIconWarning`, `XIconInfo`, `XIconHelp`, `XIconPerson`, `XIconDocument`, `XIconRecord`, `XIconOrganization`, `XIconDashboard`, `XIconTask`, `XIconHome`, `XIconMail`, `XIconCalendar`, `XIconBell`, `XIconLock`, `XIconLogout`, `XIconBold` |
 | Actions | `XButton`, `XIconButton`, `XBackButton`, `XToggleButton`, `XToggleButtonGroup` |
-| Inputs | `XTextField`, `XSelect`, `XMultiSelect`, `XRadioGroup`, `XCheckbox`, `applyXMask` |
+| Inputs | `XTextField`, `XSelect`, `XMultiSelect`, `XRadioGroup`, `XCheckbox`, `XColorField`, `XFileDropzone`, `applyXMask` |
+| Screens | `XLogin`, `XBranding`, `XDefaultBrand` |
 | Navigation | `XTabs`, `XLink` |
 | Chrome | `XPageHeader`, `XCard`, `XPanel`, `XSectionHeader` |
 | Feedback | `XEmpty`, `XAlert`, `XStatusChip`, `XSkeleton`, `XLoader`, `XTooltip`, `XErrorBoundary`, `XNotifyProvider`, `useXNotify`, `formatXStatus` |
@@ -28,13 +29,13 @@ Dialog widths: `sm` 600, `md` 800, `lg` 1000, `xl` 1200. Below the `sm` breakpoi
 
 ## Versioning
 
-The package version is [0.1.0](packages/ui/package.json). Versions follow semantic versioning.
+The package version is [0.2.0](packages/ui/package.json). Versions follow semantic versioning.
 
 | Change | Bump |
 | --- | --- |
-| A new component or an optional prop | Minor (`0.2.0`) |
+| A new component or an optional prop | Minor (`0.3.0`) |
 | A prop rename, a removed export, or a token that changes existing screens | Major (`1.0.0`) |
-| A fix that does not change the public API | Patch (`0.1.1`) |
+| A fix that does not change the public API | Patch (`0.2.1`) |
 
 A font change or a default color change is a minor bump of this package. Apps update the dependency. Screens are not edited to rename a typeface.
 
@@ -165,6 +166,69 @@ export function People() {
 }
 ```
 
+## Sign in and branding
+
+`XLogin` is the sign-in screen. It is one form, so Enter submits. The app performs the auth request. The component does not store the password. Pass `sso` when the app offers SSO, and omit it for email and password only. SSO buttons stay secondary. `footer` is an optional link the app owns, such as forgot password. There is no reset flow in this package. Show `error` as a sentence the app chooses. Pass `submitting` while the request is in flight.
+
+```tsx
+import { useState } from "react";
+import { XLink, XLogin } from "@shared-ui/react";
+
+export function SignIn() {
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  return (
+    <XLogin
+      email={email}
+      password={password}
+      onEmailChange={setEmail}
+      onPasswordChange={setPassword}
+      onSubmit={({ email, password }) => signIn(email, password)}
+      sso={[{ id: "sso", label: "Continue with SSO", onClick: startSso }]}
+      footer={<XLink href="/forgot">Forgot Password</XLink>}
+    />
+  );
+}
+```
+
+`XBranding` is the branding settings screen, with Theme and Media tabs. Start from `XDefaultBrand`. The app saves `value`. `onMediaPick` receives the image file, and the app uploads it, then writes the URL back onto `value.media`. A file that is not a PNG, JPEG, WebP, or SVG shows an inline error and is not reported. When white text on the primary color is below the WCAG AA contrast ratio, the theme tab shows a hint and still allows the edit.
+
+Apply a saved brand with `createXTheme`. The optional second argument sets the palette, both backgrounds, the divider, the radius, and the font. The default light and dark themes stay unchanged when you omit it. This package loads Roboto. Another allowed face appears after the app loads that font.
+
+```tsx
+import { useState } from "react";
+import { createXTheme, XBranding, XCssBaseline, XDefaultBrand, XPageHeader, XThemeProvider, type XBrand } from "@shared-ui/react";
+
+export function BrandingPage() {
+  const [brand, setBrand] = useState<XBrand>(XDefaultBrand);
+  const theme = createXTheme(brand.mode, brand);
+  return (
+    <XThemeProvider theme={theme}>
+      <XCssBaseline />
+      <XPageHeader title="Branding" subtitle="Manage how the product looks." />
+      <XBranding value={brand} onChange={setBrand} onMediaPick={(slot, file) => upload(slot, file)} />
+    </XThemeProvider>
+  );
+}
+```
+
+`XColorField` is a label, a swatch, and a hex value. `XFileDropzone` is the image picker used above. Both can be used on any form.
+
+```tsx
+import { useState } from "react";
+import { XColorField, XFileDropzone } from "@shared-ui/react";
+
+export function Accent() {
+  const [color, setColor] = useState("#1A3A65");
+  return (
+    <>
+      <XColorField label="Primary Color" value={color} onChange={setColor} />
+      <XFileDropzone label="Logo Light" value={null} onPick={(file) => upload(file)} />
+    </>
+  );
+}
+```
+
 ## Theme and type
 
 Color, type, and radius come from the theme. Feature code does not paste a hex.
@@ -207,4 +271,4 @@ npm test
 npm run typecheck
 ```
 
-Tests cover masks, status labels, theme tokens, dialog widths, and each control: button, header, card, panel, empty state, section, alert, chip, fields, select, multi-select, checkbox, tabs, link, dialog, confirm, drawer, data grid, and toast.
+Tests cover masks, status labels, theme tokens, dialog widths, and each control: button, header, card, panel, empty state, section, alert, chip, fields, select, multi-select, checkbox, color field, file dropzone, sign-in, branding, tabs, link, dialog, confirm, drawer, data grid, and toast.

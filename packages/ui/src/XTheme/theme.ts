@@ -12,31 +12,49 @@ import "./palette";
 import { fontFamily } from "./fonts";
 import { themeTokens } from "./tokens";
 
-export function createXTheme(mode: ColorMode = themeTokens.mode) {
-  const background = themeTokens.background[mode];
+export type XThemeBrand = {
+  primary?: string;
+  secondary?: string;
+  tertiary?: string;
+  info?: string;
+  success?: string;
+  warning?: string;
+  error?: string;
+  backgroundLight?: string;
+  backgroundDark?: string;
+  divider?: string;
+  radius?: number;
+  font?: string;
+};
+
+export function createXTheme(mode: ColorMode = themeTokens.mode, brand?: XThemeBrand) {
+  const background = mode === "dark" ? (brand?.backgroundDark ?? themeTokens.background.dark) : (brand?.backgroundLight ?? themeTokens.background.light);
+  const family = brand?.font ? `${brand.font}, "Helvetica", "Arial", sans-serif` : fontFamily;
+  const radius = brand?.radius ?? themeTokens.radius;
   return createTheme({
     palette: {
       mode,
-      primary: { main: themeTokens.primary },
-      secondary: { main: themeTokens.secondary },
-      tertiary: { main: themeTokens.tertiary },
-      info: { main: themeTokens.info },
-      success: { main: themeTokens.success },
-      warning: { main: themeTokens.warning },
-      error: { main: themeTokens.error },
+      primary: { main: brand?.primary ?? themeTokens.primary },
+      secondary: { main: brand?.secondary ?? themeTokens.secondary },
+      tertiary: { main: brand?.tertiary ?? themeTokens.tertiary },
+      info: { main: brand?.info ?? themeTokens.info },
+      success: { main: brand?.success ?? themeTokens.success },
+      warning: { main: brand?.warning ?? themeTokens.warning },
+      error: { main: brand?.error ?? themeTokens.error },
+      ...(brand?.divider ? { divider: brand.divider } : {}),
       background: { default: background, paper: background },
     },
-    shape: { borderRadius: themeTokens.radius },
-    typography: { fontFamily },
+    shape: { borderRadius: radius },
+    typography: { fontFamily: family },
     components: {
       MuiCssBaseline: {
         styleOverrides: {
-          body: { fontFamily },
+          body: { fontFamily: family },
         },
       },
       MuiPaper: {
         styleOverrides: {
-          rounded: { borderRadius: 8 },
+          rounded: { borderRadius: brand?.radius ?? 8 },
         },
       },
       MuiDialog: {
