@@ -1,8 +1,8 @@
 import { fireEvent, screen } from "@testing-library/react";
 import { describe, expect, it, vi } from "vitest";
 
-import { renderWithTheme } from "../tests/render";
-import { XColorField } from "./XColorField";
+import { renderWithTheme } from "../render";
+import { XColorField } from "../../src/XInput";
 
 describe("XColorField", () => {
   it("edits the hex value and the swatch", () => {

@@ -11,7 +11,11 @@
     "esModuleInterop": true,
     "forceConsistentCasingInFileNames": true,
     "isolatedModules": true,
-    "noEmit": true
+    "noEmit": true,
+    "baseUrl": ".",
+    "paths": {
+      "@shared-ui/react": ["./src/index.ts"]
+    }
   },
-  "include": ["src"]
+  "include": ["src", "test", "example"]
 }

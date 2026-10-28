@@ -1,6 +1,6 @@
 import { describe, expect, it } from "vitest";
 
-import { dialogWidths } from "./widths";
+import { dialogWidths } from "../../src/XDialog/widths";
 
 describe("dialogWidths", () => {
   it("matches the design sizes", () => {

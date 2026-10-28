@@ -2,8 +2,8 @@ import { fireEvent, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { describe, expect, it, vi } from "vitest";
 
-import { renderWithTheme } from "../tests/render";
-import { XFileDropzone } from "./XFileDropzone";
+import { renderWithTheme } from "../render";
+import { XFileDropzone } from "../../src/XInput";
 
 describe("XFileDropzone", () => {
   it("accepts an image and rejects another type", async () => {

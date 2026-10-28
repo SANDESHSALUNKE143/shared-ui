@@ -1,6 +1,6 @@
 import { describe, expect, it } from "vitest";
 
-import { applyMask } from "./masks";
+import { applyMask } from "../../src/XInput/masks";
 
 describe("applyMask", () => {
   it("formats a phone as it is typed", () => {

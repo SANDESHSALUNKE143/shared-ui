@@ -3,9 +3,8 @@ import userEvent from "@testing-library/user-event";
 import { useState } from "react";
 import { describe, expect, it, vi } from "vitest";
 
-import { renderWithTheme } from "../tests/render";
-import { XDefaultBrand, type XBrand } from "./brand";
-import { XBranding } from "./XBranding";
+import { renderWithTheme } from "../render";
+import { XBranding, XDefaultBrand, type XBrand } from "../../src/XBranding";
 
 function Editor({
   onChange,

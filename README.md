@@ -39,6 +39,8 @@ The package version is [0.2.0](packages/ui/package.json). Versions follow semant
 
 A font change or a default color change is a minor bump of this package. Apps update the dependency. Screens are not edited to rename a typeface.
 
+A pull request merged into `dev` bumps the patch version of this package and commits that change on `dev`. CI runs the tests and the typecheck on pull requests and on pushes to `main` and `dev`.
+
 The package is `private` until it is published. Until then, apps install it from this repository.
 
 ## Requirements
@@ -260,9 +262,11 @@ There is no Figma plugin in this repository. A screen is coded from the layout a
 3. Compose `XPageHeader`, then `XTabs` when the page has sections, then the content (`XCard`, `XPanel`, `XDataGrid`, or `XDialog`).
 4. Load data in the app. Loading uses the header `loading` flag (a skeleton). An error calls `useXNotify`. An empty list uses `XEmpty` with one sentence and, when the user can fix it, the primary `XButton`.
 5. Put `data-cy` or `data-testid` on the primary action, the dialog, and any region a Cypress test must find.
-6. If the control is new and shared, add it under `packages/ui/src`, export it from that folder and from `src/index.ts`, and add a test. Do not copy it into the app.
+6. If the control is new and shared, add it under `packages/ui/src`, export it from that folder and from `src/index.ts`, and add a test under `packages/ui/test`. Do not copy it into the app.
 
 ## Tests
+
+Test files live in [packages/ui/test](packages/ui/test). A reference app that wires `XLogin` and `XBranding` lives in [packages/ui/example](packages/ui/example).
 
 From the repository root:
 

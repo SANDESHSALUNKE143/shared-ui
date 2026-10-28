@@ -9,6 +9,6 @@
   "scripts": {
     "build": "npm run build --workspace @shared-ui/react",
     "typecheck": "npm run typecheck --workspace @shared-ui/react",
-    "test": "npm run test --workspace @shared-ui/react"
+    "test": "npm run test --workspace @shared-ui/react && node --test scripts/bump-patch.test.mjs"
   }
 }
